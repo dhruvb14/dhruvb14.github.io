@@ -145,65 +145,6 @@
                     <div class="col-md-12">
                 <pre style="max-height:300px; margin:15px">
 <code class="language-powershell" id="autoGenerator">
-
-
-if (Test-PendingReboot) { Invoke-Reboot }
-
-# Update Windows and reboot if necessary
-Install-WindowsUpdate -AcceptEula
-#if (Test-PendingReboot) { Invoke-Reboot }
-
-# Install Visual Studio 2013 Ultimate
-choco install visualstudio2013ultimate
-#if (Test-PendingReboot) { Invoke-Reboot }
-
-choco install DotNet3.5 # Not automatically installed with VS 2013. Includes .NET 2.0. Uses Windows Features to install.
-#if (Test-PendingReboot) { Invoke-Reboot }
-
-# Install Visual Studio 2015 Ultimate
-choco install visualstudio2015enterprise
-#if (Test-PendingReboot) { Invoke-Reboot }
-
-# Install O365 Business
-choco install office365business
-#if (Test-PendingReboot) { Invoke-Reboot }
-
-
-#Other dev tools
-choco install fiddler4
-choco install NugetPackageExplorer
-choco install linqpad4
-choco install notepadplusplus.install
-choco install visualstudiocode
-choco install resharper
-choco install git
-choco install windowsazurepowershell
-choco install cyberduck
-choco install silverlight
-choco install adobeair
-choco install nodejs.install #Used for Grunt in VS2015
-
-#Browsers
-choco install googlechrome
-choco install firefox
-
-#Other essential tools
-choco install 7zip
-choco install adobereader
-choco install javaruntime
-
-#Password Managers
-choco install lastpass
-choco install keepass
-
-#cinst Microsoft-Hyper-V-All -source windowsFeatures
-#cinst IIS-WebServerRole -source windowsfeatures
-#cinst IIS-HttpCompressionDynamic -source windowsfeatures
-#cinst IIS-ManagementScriptingTools -source windowsfeatures
-#cinst IIS-WindowsAuthentication -source windowsfeatures
-#Not working in windows 10 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Google\Chrome\Application\chrome.exe"
-#Not working in windows 10 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe"
-#Not working in windows 10 Install-ChocolateyPinnedTaskBarItem "$($Boxstarter.programFiles86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe"
 </code>
             </pre>
             </div>
@@ -251,16 +192,16 @@ choco install keepass
                     </div>
 
                     <!-- Button (Double) -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="button1id">Double Button</label>
-                        <div class="col-md-8">
-                            <button id="button1id" name="button1id" class="btn btn-success">Good Button</button>
-                            <button id="button2id" name="button2id" class="btn btn-danger">Scary Button</button>
-                        </div>
-                    </div>
-
+                        
                 </fieldset>
             </form>
+            
+            </div>
+            <div class="row">
+            <div class="col-md-8">
+                            <a href="#" onclick="submitUnPw()"><button id="button1id" name="button1id" class="btn btn-success" >Generate Installer</button></a>
+                        </div>
+                        <div id="viewGist"></div>
             </div>
         </div>
     </div>

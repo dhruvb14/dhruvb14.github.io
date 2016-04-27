@@ -17,27 +17,35 @@ function getAuth(username, password) {
     }).done(function (response) {
         deferred.resolve(response);
         githubToken = response.token;
+        createGist(githubToken, JSON.stringify($("#autoGenerator").text()));
         console.log(response);
     });
 
     return deferred;
 }
+function submitUnPw(){
+    var username = $("#GithubUsername").val()
+    var password = $("#GithubPassword").val()
+    getAuth(username,password);
+}
 var gist = null;
 //Create a Gist with token from above
-function createGist(token) {
+function createGist(token, gist) {
+    var body = '{"description": "a gist for a user with token api call via ajax","public": true,"files": {"boxstarter.ps1": {"content": '+gist+'}}}';
     $.ajax({
         url: 'https://api.github.com/gists',
         type: 'POST',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "token " + token);
         },
-        data: '{"description": "a gist for a user with token api call via ajax","public": true,"files": {"file1.txt": {"content": "String file casdsadontents via ajax"}}}'
+        data: body,
     }).done(function (response) {
         console.log(response);
         gist = response;
-        var url = gist.files["file1.txt"].raw_url;
-        $('body').append("<a href=\"" + url + "\" target='_blank'>Open Gist</a>")
-        $('body').append
+        var url = gist.files["boxstarter.ps1"].raw_url;
+        $('#viewGist').append("<a href=\"http://boxstarter.org/package/nr/url?" + url + "\" target='_blank'>Start Installer</a>");
+        $('#viewGist').append("<a href=\"" + url + "\" target='_blank'>View Gist</a>");
+        
     });
 
 }
