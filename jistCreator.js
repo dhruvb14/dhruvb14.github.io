@@ -43,7 +43,7 @@ function createGist(token, gist) {
         console.log(response);
         gist = response;
         var url = gist.files["boxstarter.ps1"].raw_url;
-        $('#viewGist').append("<a href=\"http://boxstarter.org/package/nr/url?" + url + "\" target='_blank'>Start Installer</a>");
+        $('#viewGist').append("<br><a href=\"http://boxstarter.org/package/nr/url?" + url + "\" target='_blank'>Start Installer</a><br><br>");
         $('#viewGist').append("<a href=\"" + url + "\" target='_blank'>View Gist</a>");
         
     });
