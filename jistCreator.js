@@ -158,6 +158,11 @@ Handlebars.registerHelper("moduloIf", function(index_count,mod,block) {
   if(parseInt(index_count)%(mod)=== 0){
     return block.fn(this);}
 });
+
+Handlebars.registerHelper("DateFormatter", function(input,caller) {
+return moment(input).format("dddd, MMMM Do YYYY, h:mm:ss a"); 
+});
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
