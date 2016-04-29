@@ -1,0 +1,86 @@
+<script id="tabs" type="text/x-handlebars-template">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+                    <li role="presentation"><a href="#predefinedPackages" aria-controls="predefinedPackages" role="tab" data-toggle="tab">Common Packages</a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                    <li role="presentation"><a href="#faqs" aria-controls="faqs" role="tab" data-toggle="tab">FAQ's</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="about">...</div>
+                    <div role="tabpanel" class="tab-pane" id="predefinedPackages">
+                        <div class="row">
+                            {{#each this}}
+                            <div class="col-md-4 col-xs-6">
+                                <a href="javascript:void(0);" id="searchResult{{uniqueId}}" onclick="addToInstallScript('{{value}}', '{{uniqueId}}')">{{{checkInstall value}}}</a>                                {{name}}
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="messages">...</div>
+                    <div role="tabpanel" class="tab-pane" id="faqs">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Why do you need my Github UN/PW</a>
+			</h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        I wanted to build this entire application without needing to store any user information or setup and hosted code. Since Github
+                                        does not allow oauth2 via javascript only I essentially use jquery to make a rest
+                                        call to grab a
+                                        <a href="https://github.com/settings/tokens" target="_blank">Personal Access Token</a>                                        from your github account. This allows me to upload a public Gist to your account
+                                        and then create a link for you to automatically start Boxstarter. Your username and
+                                        password is not stored by me or anyone and a call to authenicate is made to github
+                                        via https
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">The UX/UI is bad</a>
+			</h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        If you want to take this concept and make it prettier I am glad to take any help. All my code is located in
+                                        <a href="https://github.com/dhruvb14/dhruvb14.github.io" target="_blank">GitHub</a>                                        and I will gladly take any pull requests.
+                                        <br><br> My goal was to write as little code as possible so this is pretty much all
+                                        generic Bootstrap functionality. I don't even have a custom stylesheet outside of
+                                        the one required for Prism's syntax highlighting
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Collapsible Group Item #3</a>
+			</h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
+                                        nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
+                                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                                        probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
