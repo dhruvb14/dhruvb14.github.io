@@ -107,7 +107,7 @@ $(document).ready(function () {
     var cookie = getCookie("ChocoStarter");
     currentPrograms = cookie ? JSON.parse(cookie) : [];
     cookie = getCookie('token');
-    githubToken = cookie ? cookie : [];
+    githubToken = cookie ? cookie : undefined;
     $("#APIKey").val(githubToken);
     githubToken ? $("#loginCredentials").hide() : $("#APICredentials").hide();
     updateCodeDisplay()
