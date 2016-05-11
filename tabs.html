@@ -4,14 +4,14 @@
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
-                    <li role="presentation"><a href="#predefinedPackages" aria-controls="predefinedPackages" role="tab" data-toggle="tab">Common Packages</a></li>
+                    <li role="presentation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+                    <li role="presentation" class="active"><a href="#predefinedPackages" aria-controls="predefinedPackages" role="tab" data-toggle="tab">Common Packages</a></li>
                     <li role="presentation"><a href="#faqs" aria-controls="faqs" role="tab" data-toggle="tab">FAQ's</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="about">
+                    <div role="tabpanel" class="tab-pane" id="about">
                         Welcome to ChocoStarter a Web application which will help you build a BoxStarter
                         installation script using a web gui (think Ninite for chocolatey). I am web developer
                         who often creates new VM's to test thing out and spend lots of time setting up my machines.
@@ -27,11 +27,11 @@
                         <br><br>
                         Want to help? Check out my <a href="https://github.com/dhruvb14/dhruvb14.github.io" target="_blank">GitHub</a>.               
                         </div>
-                    <div role="tabpanel" class="tab-pane" id="predefinedPackages">
+                    <div role="tabpanel" class="tab-pane active" id="predefinedPackages">
                         <div class="row">
                             {{#each this}}
                             <div class="col-md-4 col-xs-6">
-                                <a href="javascript:void(0);" id="searchResult{{uniqueId}}" onclick="addToInstallScript('{{value}}', '{{uniqueId}}')">{{{checkInstall value}}}</a>                                {{name}}
+                                <a href="javascript:void(0)" style="text-decoration: none" id="searchResult{{uniqueId}}" onclick="addToInstallScript('{{value}}', '{{name}}', '{{uniqueId}}')">{{{checkInstall value name}}}</a>
                             </div>
                             {{/each}}
                         </div>

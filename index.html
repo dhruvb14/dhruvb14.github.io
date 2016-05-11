@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="
         crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/abdmob/x2js/master/xml2json.js"></script>
@@ -14,6 +17,8 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link href="prism.css" rel="stylesheet" />
+    <link href="chocostarter.css" rel="stylesheet" />
+
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
@@ -23,10 +28,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
     <script src="cookies.js"></script>
-    <script src="init.js"></script>   
     <script src="handlebarsExtensions.js"></script>
+    <script src="init.js"></script>
     <div id="searchTemplate"></div>
     <div id="tabsTemplate"></div>
+    <script id="reviewSelectedApplicationsTemplate" type="text/x-handlebars-template">
+        <div class="row">
+            {{#each this}}
+            <div class="col-md-6 col-xs-12">
+                <a href="javascript:void(0)" style="text-decoration: none" onclick="addToInstallScript('{{item}}', '{{name}}')">{{{checkInstall item name}}}</a>
+            </div>
+            {{/each}}
+        </div>
+    </script>
 </head>
 
 <body>
@@ -37,11 +51,11 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
                         aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <a class="navbar-brand" href="#">Chocolatey + Boxstarter GUI</a>
                 </div>
 
@@ -56,15 +70,20 @@
                         <button onclick="searchQuery()" type="button" class="btn btn-default">Search</button>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Action</a>
+                                </li>
+                                <li><a href="#">Another action</a>
+                                </li>
+                                <li><a href="#">Something else here</a>
+                                </li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Separated link</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -74,81 +93,97 @@
             <!-- /.container-fluid -->
         </nav>
     </header>
+
     <div class="container-fluid">
 
         <div class="row">
             <div class="col-md-8">
-                <div id="info"></div>
+
                 <div class="row">
                     <div class="col-md-12">
-                        <div id="results"></div>
+                        <div id="info"></div>
+
+                        <div id="results" style="height:300px; overflow: auto;"></div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="row">
-                    <div class="col-md-12">
-                        <pre style="max-height:300px;">
-                        <code class="language-powershell" id="autoGenerator">
-                        </code>
-                    </pre>
-                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <form class="form-horizontal">
-                            <fieldset>
 
-                                <!-- Form Name -->
-                                <legend>Begin Installation</legend>
-                                <div id="APICredentials">
-                                    <!-- Prepended text-->
-                                    <div class="form-group">
+                </div>
+                <div class="row">
 
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">API Key</span>
-                                                <input id="APIKey" readonly name="APIKey" class="form-control" placeholder="ABCDEF213d8cd61js9b40b6a31fas951eb3dd6e0" type="text">
-                                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <pre style="max-height:200px;">
+                <code class="language-powershell" id="autoGenerator">
+                </code>
+            </pre>
+                </div>
+                <div class="col-md-4">
+                    <div id="reviewSelectedApplications"></div>
+                </div>
+                <div class="col-md-4">
+                    <form class="form-horizontal">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Begin Installation</legend>
+                            <div id="APICredentials">
+                                <!-- Prepended text-->
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">API Key</span>
+                                            <input id="APIKey" readonly name="APIKey" class="form-control" placeholder="ABCDEF213d8cd61js9b40b6a31fas951eb3dd6e0" type="text">
                                         </div>
                                     </div>
                                 </div>
-                                <div id="loginCredentials">
-                                    <!-- Prepended text-->
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Github Username</span>
-                                                <input id="GithubUsername" name="GithubUsername" class="form-control" placeholder="dhruvb14" type="text">
-                                            </div>
-                                            <p class="help-block">Please enter your Github username</p>
+                            </div>
+                            <div id="loginCredentials">
+                                <!-- Prepended text-->
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Github Username</span>
+                                            <input id="GithubUsername" name="GithubUsername" class="form-control" placeholder="dhruvb14" type="text">
                                         </div>
-                                    </div>
-
-                                    <!-- Password input-->
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">Github Password</span>
-                                                <input id="GithubPassword" name="GithubPassword" class="form-control" placeholder="password12345" type="password">
-                                            </div>
-                                            <p class="help-block">Please enter your Github username</p>
-                                        </div>
+                                        <p class="help-block">Please enter your Github username</p>
                                     </div>
                                 </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
+
+                                <!-- Password input-->
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Github Password</span>
+                                            <input id="GithubPassword" name="GithubPassword" class="form-control" placeholder="password12345" type="password">
+                                        </div>
+                                        <p class="help-block">Please enter your Github username</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                     <div class="col-md-8">
-                        <a href="#" onclick="submitUnPw()"><button id="button1id" name="button1id" class="btn btn-success" >Generate Installer</button></a>
+                        <a href="#" onclick="submitUnPw()">
+                            <button id="button1id" name="button1id" class="btn btn-success">Generate Installer</button>
+                        </a>
                     </div>
                     <div id="viewGist"></div>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 
 </html>

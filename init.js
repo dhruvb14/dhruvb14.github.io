@@ -40,7 +40,7 @@ function getAuth(username, password) {
 }
 function submitUnPw() {
     var token = $("#APIKey").val();
-    token ? createGist(githubToken, JSON.stringify($("#autoGenerator").text())) :getAuth($("#GithubUsername").val(), $("#GithubPassword").val());
+    token ? createGist(githubToken, JSON.stringify($("#autoGenerator").text())) : getAuth($("#GithubUsername").val(), $("#GithubPassword").val());
 }
 var gist = null;
 //Create a Gist with token from above
@@ -90,16 +90,22 @@ function searchQuery() {
     randomApiSearch($("#searchQuery").val());
 }
 var currentPrograms = []
-function addToInstallScript(item, index) {
-    var found = currentPrograms.indexOf(item);
-    if (found > -1) {
-        currentPrograms.splice(found, 1);
+function addToInstallScript(item, name, index) {
+    var vm = { name: name, item: item };
+    var originalLength = currentPrograms.length
+    var remove = $.grep(currentPrograms, function (e) {
+        return e.item != item;
+    });
+    var newLength = remove.length;
+    if (originalLength != newLength) {
+        currentPrograms = remove;
     } else {
-        currentPrograms.push(item);
+        currentPrograms.push(vm);
     }
-    $("#searchResult" + index).html(checkInstall(item, null))
+    $("#searchResult" + index).html(checkInstall(item, name))
     var currentInstall = JSON.stringify(currentPrograms);
     setCookie('ChocoStarter', currentInstall, 7);
+    reviewSelectedApplications()
     updateCodeDisplay();
     console.log(currentPrograms);
 }
@@ -111,19 +117,23 @@ function updateCodeDisplay() {
     buffer += "$Boxstarter.NoPassword=$false # Is this a machine with no login password?\n";
     buffer += "$Boxstarter.AutoLogin=$true # Save my password securely and auto-login after a reboot\n";
     $.each(currentPrograms, function (index, value) {
-        buffer += "if (Test-PendingReboot) { Invoke-Reboot }\n" + value + "\n";
+        buffer += "if (Test-PendingReboot) { Invoke-Reboot }\n" + value.item + "\n";
     })
     $("#autoGenerator").text(buffer)
     Prism.highlightAll()
 }
-
+function reviewSelectedApplications(){
+    var template = Handlebars.compile($('#reviewSelectedApplicationsTemplate').html());
+        var html = template(currentPrograms);
+        $('#reviewSelectedApplications').html(html);
+}
 function loadTemplates() {
     $("#searchTemplate").load("search.html");
     $("#tabsTemplate").load("tabs.html", function () {
         getPredefinedPackages();
     });
 }
-function getPredefinedPackages(){
+function getPredefinedPackages() {
     $.ajax({
         url: 'predefinedpackages.json',
         type: 'get',
@@ -135,11 +145,11 @@ function getPredefinedPackages(){
 }
 
 
-function checkInstall(context, options) {
-    var check = '<i class="fa fa-check-square-o" aria-hidden="true"></i>';
-    var ret = '<i class="fa fa-square-o" aria-hidden="true"></i>';
+function checkInstall(context, title, options) {
+    var check = '<i class="fa fa-check-square-o fa-2x" aria-hidden="true"></i><strong> ' + title + '</strong>';
+    var ret = '<i class="fa fa-square-o fa-2x" aria-hidden="true"></i> ' + title + '';
     $.each(currentPrograms, function (index, value) {
-        if (context == value) {
+        if (context == value.item) {
             ret = check;
         }
     })

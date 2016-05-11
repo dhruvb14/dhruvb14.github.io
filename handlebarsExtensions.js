@@ -6,7 +6,9 @@ Handlebars.registerHelper('imageProxy', function (context, options) {
     }
     return "https://images.weserv.nl/?url=" + url + "&w=100&h=100&t=square&a=center&t=fitup";
 });
-Handlebars.registerHelper('checkInstall', checkInstall);
+Handlebars.registerHelper('checkInstall', function(context, title, options){
+    return checkInstall(context, title, options);
+});
 Handlebars.registerHelper("moduloIf", function(index_count,mod,block) {
   if(parseInt(index_count)%(mod)=== 0){
     return block.fn(this);}
